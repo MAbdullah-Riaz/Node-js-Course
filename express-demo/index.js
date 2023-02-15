@@ -1,11 +1,15 @@
 const morgan = require('morgan');
 const helmet = require('helmet');
+
 const config = require('config');
 const Joi = require('joi');
 
 const express = require('express');
 const logger = require('./logger');
 const app = express();
+
+app.set('view engine', 'pug');
+app.set('views', './views');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -30,7 +34,7 @@ const courses = [
 ];
 
 app.get('/', (request, response) => {
-  response.send([1, 23, 33, 45]);
+  response.render('index', { title: 'My Express app', message: 'Hello' });
 });
 
 app.get('/api/courses', (request, response) => {
