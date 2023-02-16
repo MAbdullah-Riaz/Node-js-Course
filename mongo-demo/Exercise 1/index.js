@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
-// console.log(jData);
-// const data = JSON.parse(jData);
 mongoose.set('strictQuery', false);
 
-(async () => {
+async function main() {
   await mongoose.connect('mongodb://localhost/mongo-exercise');
   //   .then(() => console.log('Connected to the MongoDB...'))
   //   .catch((err) => console.error('could not connect to MongoDb...', err));
@@ -31,14 +29,27 @@ mongoose.set('strictQuery', false);
 
   const updateCourse = async (id) => {
     console.log('Course', Course);
-    const course = await Course.findById(id);
-    if (!course) return;
+    const course = await Course.update(
+      { _id: id },
+      {
+        $set: {
+          author: 'Mosh',
+          isPublished: false,
+        },
+      }
+    );
 
-    course.isPublished = true;
-    course.author = 'Another Author 1';
-    const result = await course.save();
-    console.log(result);
+    console.log(course);
   };
 
-  updateCourse('63ee3137de88a062ed00ac55');
-})();
+  //   updateCourse('63ee3137de88a062ed00ac55');
+
+  const deleteCourse = async (id) => {
+    const result = await Course.findByIdAndRemove(id);
+
+    console.log(result);
+  };
+  deleteCourse('63ee354982f3a22f208421ff');
+}
+
+main();
