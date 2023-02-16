@@ -33,7 +33,7 @@ const getCourse = async () => {
   const courses = await Course
     //   .find({
     //     isPublished: true,
-    //   })
+    //   }) 
     // .find({ price: { $gte: 10, $lte: 20 } })
     // .find({ price: { $in: [10, 15, 16] } })
 
